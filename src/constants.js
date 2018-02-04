@@ -1,3 +1,4 @@
+export const API_BASE_URL = 'https://api.fixer.io/'
 export const API_DATE_FORMAT = 'YYYY-MM-DD'
 
 export const CURRENCIES = [
