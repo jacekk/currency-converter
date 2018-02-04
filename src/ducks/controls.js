@@ -3,7 +3,7 @@ import moment from 'moment'
 import { fetchMainRates, fetchComparisonRates } from './rates'
 
 const DEFAULT_STATE = {
-    amount: 1,
+    amount: 100,
     comparisonDate: moment().subtract(1, 'months'),
     currency: 'PLN',
     isCalculatorEnabled: false,
