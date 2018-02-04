@@ -1,10 +1,27 @@
 @import '~antd/dist/antd.css';
 
 .App {
+    display: flex;
     height: 100vh;
     min-width: 1000px;
+    background: transparent;
 }
 
-.App-header {
+.App-header,
+.App-footer {
     background: #e0e1e3;
+}
+
+.App-body {
+    overflow: auto;
+}
+
+.App-footer {
+    align-items: center;
+    color: #888;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    padding-bottom: 0;
+    padding-top: 0;
 }

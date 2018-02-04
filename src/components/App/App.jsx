@@ -15,10 +15,10 @@ class App extends Component {
                 <Header className="App-header">
                     <Controls />
                 </Header>
-                <Content>
+                <Content className="App-body">
                     <Results />
                 </Content>
-                <Footer>© 2018 JacekK, Inc.</Footer>
+                <Footer className="App-footer">© 2018 JacekK, Inc.</Footer>
             </Layout>
         )
     }
