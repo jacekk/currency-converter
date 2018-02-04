@@ -6,3 +6,11 @@
 .Results-table thead > tr > th {
     text-transform: uppercase;
 }
+
+.Results-diffIncrease {
+    color: green;
+}
+
+.Results-diffDecrease {
+    color: red;
+}

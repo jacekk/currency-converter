@@ -53,6 +53,18 @@ const prepareDataSource = ({
         }
     })
 
+export const diffRender = (text) => {
+    let cellClass = 'Results-diffIncrease'
+
+    if (text === '0.0000') {
+        cellClass = 'Results-noDiff'
+    } else if (text[0] === '-') {
+        cellClass = 'Results-diffDecrease'
+    }
+
+    return <span className={cellClass}>{text}</span>
+}
+
 const getColumns = (props) =>
     [
         {
@@ -85,6 +97,7 @@ const getColumns = (props) =>
             title: `difference`,
             dataIndex: 'diff',
             key: 'diff',
+            render: diffRender,
         },
         props.hasComparison && {
             title: `ratio`,
@@ -95,6 +108,7 @@ const getColumns = (props) =>
 
 export default (props) => (
     <Table
+        bordered
         className="Results-table"
         columns={getColumns(props)}
         dataSource={prepareDataSource(props)}

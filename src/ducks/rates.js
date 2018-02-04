@@ -13,6 +13,14 @@ const FETCH_MAIN_SUCCESS = 'rates/FETCH_MAIN_SUCCESS'
 const FETCH_COMPARISON_START = 'rates/FETCH_COMPARISON_START'
 const FETCH_COMPARISON_SUCCESS = 'rates/FETCH_COMPARISON_SUCCESS'
 
+export const fetchOnPageLoad = () => (dispatch, getState) => {
+    dispatch(fetchMainRates())
+
+    if (get(getState(), 'controls.isComparisonEnabled')) {
+        dispatch(fetchComparisonRates())
+    }
+}
+
 export const fetchMainRates = () => (dispatch, getState) => {
     const { controls } = getState()
     const dateFormatted = controls.mainDate.format(API_DATE_FORMAT)

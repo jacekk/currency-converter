@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import persistState from 'redux-localstorage'
 
 import reducers from './ducks'
-import { fetchMainRates } from './ducks/rates'
+import { fetchOnPageLoad } from './ducks/rates'
 
 const DEFAULT_STATE = {}
 
@@ -36,6 +36,6 @@ const enhancers = compose(
 
 const store = createStore(combineReducers(reducers), DEFAULT_STATE, enhancers)
 
-store.dispatch(fetchMainRates())
+store.dispatch(fetchOnPageLoad())
 
 export default store
