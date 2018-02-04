@@ -1,8 +1,7 @@
 import React from 'react'
-import moment from 'moment'
 import { DatePicker, Select, Row, Col, Checkbox, InputNumber } from 'antd'
 
-import { CURRENCIES, API_DATE_FORMAT } from '../../constants'
+import { CURRENCIES } from '../../constants'
 
 import './Controls.css'
 
@@ -11,33 +10,14 @@ const { Option } = Select
 const renderOptions = () =>
     CURRENCIES.map((item) => <Option key={item}>{item}</Option>)
 
-const onCurrencyChange = (value) => console.log('currency changed to:', value)
-
-const onDateChange = (momentDate) =>
-    console.log('date changed to:', momentDate.format(API_DATE_FORMAT))
-
-const onCompareDateChange = (momentDate) =>
-    console.log(
-        'date to compare changed to:',
-        momentDate.format(API_DATE_FORMAT)
-    )
-
-const onCompareCheckboxChange = (ev) =>
-    console.log('compare checkbox changed to:', ev.target.checked)
-
-const onCalculateCheckboxChange = (ev) =>
-    console.log('calculate checkbox changed to:', ev.target.checked)
-
-const onAmountChange = (value) => console.log('amount changed to:', value)
-
-export default () => (
+export default (props) => (
     <Row type="flex" justify="center" gutter={16}>
         <Col span={4}>
             <Select
-                defaultValue="PLN"
-                onChange={onCurrencyChange}
-                showSearch
                 className="Controls-currencySelect"
+                onChange={props.onCurrencyChange}
+                showSearch
+                value={props.currency}
             >
                 {renderOptions()}
             </Select>
@@ -45,29 +25,39 @@ export default () => (
         <Col span={4}>
             <DatePicker
                 allowClear={false}
-                defaultValue={moment()}
-                onChange={onDateChange}
+                onChange={props.onMainDateChange}
+                value={props.mainDate}
             />
         </Col>
         <Col span={4} className="Controls-checkbox">
-            <Checkbox onChange={onCompareCheckboxChange}>Compare?</Checkbox>
+            <Checkbox
+                checked={props.isComparisonEnabled}
+                onChange={props.onComparisonToggle}
+            >
+                Compare?
+            </Checkbox>
         </Col>
         <Col span={4}>
             <DatePicker
                 allowClear={false}
-                defaultValue={moment().subtract(1, 'months')}
-                disabled={true}
-                onChange={onCompareDateChange}
+                disabled={!props.isComparisonEnabled}
+                onChange={props.onComparisonDateChange}
+                value={props.comparisonDate}
             />
         </Col>
         <Col span={4} className="Controls-checkbox">
-            <Checkbox onChange={onCalculateCheckboxChange}>Calculate?</Checkbox>
+            <Checkbox
+                checked={props.isCalculatorEnabled}
+                onChange={props.onCalculationToggle}
+            >
+                Calculate?
+            </Checkbox>
         </Col>
         <Col span={4}>
             <InputNumber
-                defaultValue={1}
-                disabled={true}
-                onChange={onAmountChange}
+                disabled={!props.isCalculatorEnabled}
+                onChange={props.onAmountChange}
+                value={props.amount}
             />
         </Col>
     </Row>
