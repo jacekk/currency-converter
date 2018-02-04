@@ -8,6 +8,7 @@
     "antd": "^3.1.6",
     "axios": "^0.17.1",
     "babel-plugin-import": "^1.6.3",
+    "gh-pages": "^1.1.0",
     "lodash": "^4.17.5",
     "numeral": "^2.0.6",
     "react": "^16.2.0",
@@ -23,6 +24,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   }
 }
