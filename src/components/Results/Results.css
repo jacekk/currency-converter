@@ -1,0 +1,8 @@
+.Results-table thead > tr > th:not(:first-of-type),
+.Results-table td:not(:first-of-type) {
+    text-align: right;
+}
+
+.Results-table thead > tr > th {
+    text-transform: uppercase;
+}

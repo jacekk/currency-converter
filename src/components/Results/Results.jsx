@@ -1,64 +1,104 @@
 import React from 'react'
+import numeral from 'numeral'
 import { Table } from 'antd'
 
-import { CURRENCIES } from '../../constants'
+import './Results.css'
 
-const dataSource = CURRENCIES.map((item) => ({
-    key: item,
-    rate: 4,
-    calculated: 4 * 4,
-    compareRate: 3.8,
-    compareCalculated: 3.8 * 4,
-    diff: -0.2,
-    diffPercent: 3.8 / 4,
-}))
+const RATE_FORMAT = '0,0.0000'
+const CALC_FORMAT = '0,0.0000'
+const PERCENT_FORMAT = '(0.00 %)'
 
-const columns = [
-    {
-        title: '',
-        dataIndex: 'key',
-        key: 'key',
-    },
-    {
-        title: 'Rate 1',
-        dataIndex: 'rate',
-        key: 'rate',
-    },
-    {
-        title: 'Calculated 1',
-        dataIndex: 'calculated',
-        key: 'calculated',
-    },
-    {
-        title: 'Rate 2',
-        dataIndex: 'compareRate',
-        key: 'compareRate',
-    },
-    {
-        title: 'Calculated 2',
-        dataIndex: 'compareCalculated',
-        key: 'compareCalculated',
-    },
-    {
-        title: 'Diff',
-        dataIndex: 'diff',
-        key: 'diff',
-    },
-    {
-        title: 'Diff %',
-        dataIndex: 'diffPercent',
-        key: 'diffPercent',
-    },
-]
+const prepareDataSource = ({
+    amount,
+    comparison,
+    currencies,
+    hasCals,
+    hasComparison,
+    rates,
+}) =>
+    currencies.map((currency) => {
+        const rate = rates[currency] || 0
 
-export default () => (
-    <div>
-        <Table
-            className="Results-table"
-            columns={columns}
-            dataSource={dataSource}
-            pagination={false}
-            size="small"
-        />
-    </div>
+        let comparisonRate = 0
+        let calculated = 0
+        let compCalculated = 0
+        let diff = 0
+        let ratio = 0
+
+        if (hasCals) {
+            calculated = rate * amount
+        }
+
+        if (hasComparison) {
+            comparisonRate = comparison[currency]
+
+            if (comparisonRate) {
+                diff = rate - comparisonRate
+                ratio = rate / comparisonRate
+
+                if (hasCals) {
+                    compCalculated = comparisonRate * amount
+                }
+            }
+        }
+
+        return {
+            key: currency,
+            rate: numeral(rate).format(RATE_FORMAT),
+            comparisonRate: numeral(comparisonRate).format(RATE_FORMAT),
+            calculated: numeral(calculated).format(CALC_FORMAT),
+            compCalculated: numeral(compCalculated).format(CALC_FORMAT),
+            diff: numeral(diff).format(CALC_FORMAT),
+            ratio: numeral(ratio).format(PERCENT_FORMAT),
+        }
+    })
+
+const getColumns = (props) =>
+    [
+        {
+            title: 'currencies',
+            dataIndex: 'key',
+            key: 'key',
+        },
+        {
+            title: `${props.ratesDate} | rates`,
+            dataIndex: 'rate',
+            key: 'rate',
+        },
+        props.hasComparison && {
+            title: `${props.comparisonDate} | rates`,
+            dataIndex: 'comparisonRate',
+            key: 'comparisonRate',
+        },
+        props.hasCals && {
+            title: `${props.ratesDate} | calculated`,
+            dataIndex: 'calculated',
+            key: 'calculated',
+        },
+        props.hasComparison &&
+            props.hasCals && {
+                title: `${props.comparisonDate} | calculated`,
+                dataIndex: 'compCalculated',
+                key: 'compCalculated',
+            },
+        props.hasComparison && {
+            title: `difference`,
+            dataIndex: 'diff',
+            key: 'diff',
+        },
+        props.hasComparison && {
+            title: `ratio`,
+            dataIndex: 'ratio',
+            key: 'ratio',
+        },
+    ].filter(Boolean)
+
+export default (props) => (
+    <Table
+        className="Results-table"
+        columns={getColumns(props)}
+        dataSource={prepareDataSource(props)}
+        pagination={false}
+        size="small"
+    />
 )

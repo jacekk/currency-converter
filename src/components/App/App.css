@@ -3,13 +3,21 @@
 .App {
     display: flex;
     height: 100vh;
-    min-width: 1000px;
+    min-width: 860px;
     background: transparent;
 }
 
 .App-header,
 .App-footer {
+    align-items: center;
     background: #e0e1e3;
+    display: flex;
+    justify-content: center;
+}
+
+.App-header {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .App-body {
@@ -17,11 +25,8 @@
 }
 
 .App-footer {
-    align-items: center;
     color: #888;
-    display: flex;
     height: 40px;
-    justify-content: center;
     padding-bottom: 0;
     padding-top: 0;
 }
