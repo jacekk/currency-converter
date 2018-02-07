@@ -56,6 +56,7 @@ export default (props) => (
         <Col span={4}>
             <InputNumber
                 disabled={!props.isCalculatorEnabled}
+                min={1}
                 onChange={props.onAmountChange}
                 value={props.amount}
             />

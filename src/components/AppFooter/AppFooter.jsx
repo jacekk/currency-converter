@@ -7,15 +7,16 @@ import './AppFooter.css'
 
 const { Footer } = Layout
 
+const renderGithubLink = () => (
+    <a href={pkg.repository.url} target="blank" title="Go to GitHub repo">
+        GitHub
+    </a>
+)
+
 export default (props) => (
     <Footer className="AppFooter">
         <div>{pkg.author}</div>
-        <div>
-            Source:{' '}
-            <a href={pkg.repository.url} target="blank" title="Go to GitHub repo">
-                GitHub
-            </a>
-        </div>
+        <div>Source: {renderGithubLink()}</div>
         <div>v{pkg.version}</div>
     </Footer>
 )
