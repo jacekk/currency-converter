@@ -1,8 +1,9 @@
 import moment from 'moment'
 
 import { fetchMainRates, fetchComparisonRates } from './rates'
+import { CURRENCIES } from '../constants'
 
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
     amount: 100,
     comparisonDate: moment().subtract(1, 'months'),
     currency: 'PLN',
@@ -11,12 +12,14 @@ const DEFAULT_STATE = {
     mainDate: moment(),
 }
 
-const AMOUNT_CHANGE = 'controls/AMOUNT_CHANGE'
-const CALCULATOR_TOGGLE = 'controls/CALCULATOR_TOGGLE'
-const COMPARISION_DATE_CHANGE = 'controls/COMPARISION_DATE_CHANGE'
-const COMPARISION_TOGGLE = 'controls/COMPARISION_TOGGLE'
-const CURRENCY_CHANGE = 'controls/CURRENCY_CHANGE'
-const MAIN_DATE_CHANGE = 'controls/MAIN_DATE_CHANGE'
+export const AMOUNT_CHANGE = 'controls/AMOUNT_CHANGE'
+export const CALCULATOR_TOGGLE = 'controls/CALCULATOR_TOGGLE'
+export const COMPARISON_DATE_CHANGE = 'controls/COMPARISON_DATE_CHANGE'
+export const COMPARISON_TOGGLE = 'controls/COMPARISON_TOGGLE'
+export const CURRENCY_CHANGE = 'controls/CURRENCY_CHANGE'
+export const MAIN_DATE_CHANGE = 'controls/MAIN_DATE_CHANGE'
+
+// sync
 
 export const changeAmount = (payload) => ({
     type: AMOUNT_CHANGE,
@@ -28,38 +31,54 @@ export const toggleCalculator = (isEnabled) => ({
     payload: isEnabled,
 })
 
-export const changeComparisionDate = (payload) => (dispatch) => {
-    dispatch({
-        type: COMPARISION_DATE_CHANGE,
-        payload,
-    })
+export const changeComparisonDate = (newDate) => ({
+    type: COMPARISON_DATE_CHANGE,
+    payload: newDate,
+})
+
+export const changeCurrency = (payload) => ({
+    type: CURRENCY_CHANGE,
+    payload,
+})
+
+export const changeMainDate = (payload) => ({
+    type: MAIN_DATE_CHANGE,
+    payload,
+})
+
+export const toggleComparison = (isEnabled) => ({
+    type: COMPARISON_TOGGLE,
+    payload: isEnabled,
+})
+
+// async
+
+export const changeMainDateAsync = (momentDate) => (dispatch) => {
+    dispatch(changeMainDate(momentDate))
+    dispatch(fetchMainRates())
+}
+
+export const changeComparisonDateAsync = (momentDate) => (dispatch) => {
+    dispatch(changeComparisonDate(momentDate))
     dispatch(fetchComparisonRates())
 }
 
-export const toggleComparision = (isEnabled) => (dispatch) => {
-    dispatch({
-        type: COMPARISION_TOGGLE,
-        payload: isEnabled,
-    })
+export const toggleComparisonAsync = (isEnabled) => (dispatch) => {
+    dispatch(toggleComparison(isEnabled))
     if (isEnabled) {
         dispatch(fetchComparisonRates())
     }
 }
 
-export const changeCurrency = (payload) => (dispatch, getState) => {
+export const changeCurrencyAsync = (currency) => (dispatch, getState) => {
     const { controls } = getState()
 
-    dispatch({ type: CURRENCY_CHANGE, payload })
+    dispatch(changeCurrency(currency))
     dispatch(fetchMainRates())
 
     if (controls.isComparisonEnabled) {
         dispatch(fetchComparisonRates())
     }
-}
-
-export const changeMainDate = (payload) => (dispatch) => {
-    dispatch({ type: MAIN_DATE_CHANGE, payload })
-    dispatch(fetchMainRates())
 }
 
 export default function controlsReducer(state = DEFAULT_STATE, action = {}) {
@@ -72,11 +91,14 @@ export default function controlsReducer(state = DEFAULT_STATE, action = {}) {
             return { ...state, amount }
         case CALCULATOR_TOGGLE:
             return { ...state, isCalculatorEnabled: action.payload }
-        case COMPARISION_DATE_CHANGE:
+        case COMPARISON_DATE_CHANGE:
             return { ...state, comparisonDate: action.payload }
-        case COMPARISION_TOGGLE:
+        case COMPARISON_TOGGLE:
             return { ...state, isComparisonEnabled: action.payload }
         case CURRENCY_CHANGE:
+            if (!~CURRENCIES.indexOf(action.payload)) {
+                return state
+            }
             return { ...state, currency: action.payload }
         case MAIN_DATE_CHANGE:
             return { ...state, mainDate: action.payload }
