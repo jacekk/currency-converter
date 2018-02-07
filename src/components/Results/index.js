@@ -6,7 +6,7 @@ import Results from './Results'
 
 const mapStateToProps = (state) => ({
     amount: state.controls.amount,
-    comparison: state.rates.comparison,
+    comparisons: state.rates.comparison,
     comparisonDate: state.controls.comparisonDate.format(API_DATE_FORMAT),
     currencies: Object.keys(state.rates.main),
     hasCals: state.controls.isCalculatorEnabled,

@@ -6,7 +6,7 @@ const PERCENT_FORMAT = '(0.00 %)'
 
 export const prepareDataSource = ({
     amount,
-    comparison,
+    comparisons,
     currencies,
     hasCals,
     hasComparison,
@@ -26,7 +26,7 @@ export const prepareDataSource = ({
         }
 
         if (hasComparison) {
-            comparisonRate = comparison[currency]
+            comparisonRate = comparisons[currency]
 
             if (comparisonRate) {
                 diff = rate - comparisonRate
