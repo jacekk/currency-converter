@@ -8,10 +8,29 @@
     "type": "git",
     "url": "https://github.com/jacekk/currency-converter"
   },
-  "dependencies": {
+  "scripts": {
+    "build": "react-app-rewired build",
+    "coverage": "react-app-rewired test --coverage",
+    "deploy": "gh-pages -d build --message 'v0.1.2 released;' ",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "start": "react-app-rewired start",
+    "test": "react-app-rewired test"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
+    "coveragePathIgnorePatterns": [
+      "./src/store.js",
+      "./src/registerServiceWorker.js",
+      "index.jsx?"
+    ]
+  },
+  "devDependencies": {
     "antd": "^3.1.6",
     "axios": "^0.17.1",
     "babel-plugin-import": "^1.6.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "gh-pages": "^1.1.0",
     "lodash": "^4.17.5",
     "numeral": "^2.0.6",
@@ -20,16 +39,9 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.1.0",
+    "react-test-renderer": "^16.2.0",
     "redux": "^3.7.2",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --message 'v0.1.2 released;' ",
-    "eject": "react-scripts eject"
   }
 }
