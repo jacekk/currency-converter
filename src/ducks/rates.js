@@ -3,7 +3,7 @@ import { get } from 'lodash'
 
 import { API_BASE_URL, API_DATE_FORMAT } from '../constants'
 
-const DEFAULT_STATE = {
+export const DEFAULT_STATE = {
     comparison: {},
     main: {},
 }
@@ -13,39 +13,15 @@ const FETCH_MAIN_SUCCESS = 'rates/FETCH_MAIN_SUCCESS'
 const FETCH_COMPARISON_START = 'rates/FETCH_COMPARISON_START'
 const FETCH_COMPARISON_SUCCESS = 'rates/FETCH_COMPARISON_SUCCESS'
 
-export const fetchOnPageLoad = () => (dispatch, getState) => {
-    dispatch(fetchMainRates())
+// sync
 
-    if (get(getState(), 'controls.isComparisonEnabled')) {
-        dispatch(fetchComparisonRates())
-    }
-}
+export const fetchMainRates = () => ({
+    type: FETCH_MAIN_START,
+})
 
-export const fetchMainRates = () => (dispatch, getState) => {
-    const { controls } = getState()
-    const dateFormatted = controls.mainDate.format(API_DATE_FORMAT)
-    const base = controls.currency
-    const fullUrl = `${API_BASE_URL}${dateFormatted}?base=${base}`
-
-    dispatch({ type: FETCH_MAIN_START })
-
-    return axios.get(fullUrl).then((response) => {
-        dispatch(mainRatesFetched(response))
-    })
-}
-
-export const fetchComparisonRates = () => (dispatch, getState) => {
-    const { controls } = getState()
-    const dateFormatted = controls.comparisonDate.format(API_DATE_FORMAT)
-    const base = controls.currency
-    const fullUrl = `${API_BASE_URL}${dateFormatted}?base=${base}`
-
-    dispatch({ type: FETCH_COMPARISON_START })
-
-    return axios.get(fullUrl).then((response) => {
-        dispatch(comparisonRatesFetched(response))
-    })
-}
+export const fetchComparisonRates = () => ({
+    type: FETCH_COMPARISON_START,
+})
 
 export const mainRatesFetched = (response) => ({
     type: FETCH_MAIN_SUCCESS,
@@ -56,6 +32,42 @@ export const comparisonRatesFetched = (response) => ({
     type: FETCH_COMPARISON_SUCCESS,
     payload: get(response, 'data.rates'),
 })
+
+// async
+
+export const fetchOnPageLoadAsync = () => (dispatch, getState) => {
+    dispatch(fetchMainRatesAsync())
+
+    if (get(getState(), 'controls.isComparisonEnabled')) {
+        dispatch(fetchComparisonRatesAsync())
+    }
+}
+
+export const fetchMainRatesAsync = () => (dispatch, getState) => {
+    const { controls } = getState()
+    const dateFormatted = controls.mainDate.format(API_DATE_FORMAT)
+    const base = controls.currency
+    const fullUrl = `${API_BASE_URL}${dateFormatted}?base=${base}`
+
+    dispatch(fetchMainRates())
+
+    return axios.get(fullUrl).then((response) => {
+        dispatch(mainRatesFetched(response))
+    })
+}
+
+export const fetchComparisonRatesAsync = () => (dispatch, getState) => {
+    const { controls } = getState()
+    const dateFormatted = controls.comparisonDate.format(API_DATE_FORMAT)
+    const base = controls.currency
+    const fullUrl = `${API_BASE_URL}${dateFormatted}?base=${base}`
+
+    dispatch(fetchComparisonRates())
+
+    return axios.get(fullUrl).then((response) => {
+        dispatch(comparisonRatesFetched(response))
+    })
+}
 
 export default function ratesReducer(state = DEFAULT_STATE, action = {}) {
     switch (action.type) {

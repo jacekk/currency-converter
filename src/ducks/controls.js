@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { fetchMainRates, fetchComparisonRates } from './rates'
+import { fetchMainRatesAsync, fetchComparisonRatesAsync } from './rates'
 import { CURRENCIES } from '../constants'
 
 export const DEFAULT_STATE = {
@@ -55,18 +55,18 @@ export const toggleComparison = (isEnabled) => ({
 
 export const changeMainDateAsync = (momentDate) => (dispatch) => {
     dispatch(changeMainDate(momentDate))
-    dispatch(fetchMainRates())
+    dispatch(fetchMainRatesAsync())
 }
 
 export const changeComparisonDateAsync = (momentDate) => (dispatch) => {
     dispatch(changeComparisonDate(momentDate))
-    dispatch(fetchComparisonRates())
+    dispatch(fetchComparisonRatesAsync())
 }
 
 export const toggleComparisonAsync = (isEnabled) => (dispatch) => {
     dispatch(toggleComparison(isEnabled))
     if (isEnabled) {
-        dispatch(fetchComparisonRates())
+        dispatch(fetchComparisonRatesAsync())
     }
 }
 
@@ -74,10 +74,10 @@ export const changeCurrencyAsync = (currency) => (dispatch, getState) => {
     const { controls } = getState()
 
     dispatch(changeCurrency(currency))
-    dispatch(fetchMainRates())
+    dispatch(fetchMainRatesAsync())
 
     if (controls.isComparisonEnabled) {
-        dispatch(fetchComparisonRates())
+        dispatch(fetchComparisonRatesAsync())
     }
 }
 

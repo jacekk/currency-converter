@@ -1,3 +1,3 @@
-export const fetchMainRates = () => 'fetchMainRatesMock'
+export const fetchMainRatesAsync = () => 'fetchMainRatesAsyncMock'
 
-export const fetchComparisonRates = () => 'fetchComparisonRatesMock'
+export const fetchComparisonRatesAsync = () => 'fetchComparisonRatesAsyncMock'

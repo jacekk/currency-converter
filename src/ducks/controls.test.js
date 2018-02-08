@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { fetchComparisonRates, fetchMainRates } from './rates'
+import { fetchMainRatesAsync, fetchComparisonRatesAsync } from './rates'
 
 import reducer, {
     changeAmount,
@@ -109,7 +109,7 @@ describe('controls/asyncActions', () => {
 
         expect(dispatch.mock.calls).toHaveLength(2)
         expect(dispatch).toHaveBeenCalledWith(toggleComparison(true))
-        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRates())
+        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRatesAsync())
     })
 
     it('should dispatch two actions on main date change', () => {
@@ -120,7 +120,7 @@ describe('controls/asyncActions', () => {
 
         expect(dispatch.mock.calls).toHaveLength(2)
         expect(dispatch).toHaveBeenCalledWith(changeMainDate(newDate))
-        expect(dispatch).toHaveBeenCalledWith(fetchMainRates())
+        expect(dispatch).toHaveBeenCalledWith(fetchMainRatesAsync())
     })
 
     it('should dispatch two actions on comparison date change', () => {
@@ -131,7 +131,7 @@ describe('controls/asyncActions', () => {
 
         expect(dispatch.mock.calls).toHaveLength(2)
         expect(dispatch).toHaveBeenCalledWith(changeComparisonDate(newDate))
-        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRates())
+        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRatesAsync())
     })
 
     it('should dispatch two actions on currency change when comparison is disabled', () => {
@@ -144,7 +144,7 @@ describe('controls/asyncActions', () => {
 
         expect(dispatch.mock.calls).toHaveLength(2)
         expect(dispatch).toHaveBeenCalledWith(changeCurrency(currency))
-        expect(dispatch).toHaveBeenCalledWith(fetchMainRates())
+        expect(dispatch).toHaveBeenCalledWith(fetchMainRatesAsync())
     })
 
     it('should dispatch three actions on currency change when comparison is enabled', () => {
@@ -156,6 +156,6 @@ describe('controls/asyncActions', () => {
         changeCurrencyAsync(currency)(dispatch, getState)
 
         expect(dispatch.mock.calls).toHaveLength(3)
-        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRates())
+        expect(dispatch).toHaveBeenCalledWith(fetchComparisonRatesAsync())
     })
 })
