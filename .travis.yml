@@ -11,6 +11,6 @@ install:
     - npm install -g codecov
 
 script:
-    - npm run test
+    - npm run coverage
     - codecov
     - npm run build
