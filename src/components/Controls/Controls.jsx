@@ -1,7 +1,7 @@
 import React from 'react'
 import { DatePicker, Select, Row, Col, Checkbox, InputNumber } from 'antd'
 
-import { CURRENCIES } from '../../constants'
+import { CURRENCIES, MAX_AMOUNT, MIN_AMOUNT } from '../../constants'
 
 import './Controls.css'
 
@@ -56,7 +56,8 @@ export default (props) => (
         <Col span={4}>
             <InputNumber
                 disabled={!props.isCalculatorEnabled}
-                min={1}
+                min={MIN_AMOUNT}
+                max={MAX_AMOUNT}
                 onChange={props.onAmountChange}
                 value={props.amount}
             />

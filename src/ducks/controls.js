@@ -1,6 +1,7 @@
 import moment from 'moment'
 
 import { fetchMainRatesAsync, fetchComparisonRatesAsync } from './rates'
+import { limitAmount } from '../helpers'
 import { CURRENCIES } from '../constants'
 
 export const DEFAULT_STATE = {
@@ -88,7 +89,7 @@ export default function controlsReducer(state = DEFAULT_STATE, action = {}) {
             if (isNaN(amount)) {
                 return state
             }
-            return { ...state, amount }
+            return { ...state, amount: limitAmount(amount) }
         case CALCULATOR_TOGGLE:
             return { ...state, isCalculatorEnabled: action.payload }
         case COMPARISON_DATE_CHANGE:

@@ -1,3 +1,5 @@
+import { ZERO_FORMATTED } from '../../constants'
+
 import { prepareDataSource } from './dataSource'
 
 describe('prepareDataSource', () => {
@@ -20,12 +22,12 @@ describe('prepareDataSource', () => {
         }
         const expected = [
             {
-                calculated: '0.0000',
-                comparisonRate: '0.0000',
-                compCalculated: '0.0000',
-                diff: '0.0000',
+                calculated: ZERO_FORMATTED,
+                comparisonRate: ZERO_FORMATTED,
+                compCalculated: ZERO_FORMATTED,
+                diff: ZERO_FORMATTED,
                 key: 'PLN',
-                rate: '1.2000',
+                rate: '1.20',
                 ratio: '0.00 %',
             },
         ]
@@ -41,12 +43,12 @@ describe('prepareDataSource', () => {
         }
         const expected = [
             {
-                calculated: '2.4000',
-                comparisonRate: '0.0000',
-                compCalculated: '0.0000',
-                diff: '0.0000',
+                calculated: '2.40',
+                comparisonRate: ZERO_FORMATTED,
+                compCalculated: ZERO_FORMATTED,
+                diff: ZERO_FORMATTED,
                 key: 'PLN',
-                rate: '1.2000',
+                rate: '1.20',
                 ratio: '0.00 %',
             },
         ]
@@ -62,12 +64,12 @@ describe('prepareDataSource', () => {
         }
         const expected = [
             {
-                calculated: '0.0000',
-                comparisonRate: '1.4000',
-                compCalculated: '0.0000',
-                diff: '-0.2000',
+                calculated: ZERO_FORMATTED,
+                comparisonRate: '1.40',
+                compCalculated: ZERO_FORMATTED,
+                diff: '-0.20',
                 key: 'PLN',
-                rate: '1.2000',
+                rate: '1.20',
                 ratio: '85.71 %',
             },
         ]
@@ -83,12 +85,12 @@ describe('prepareDataSource', () => {
         }
         const expected = [
             {
-                calculated: '2.4000',
-                comparisonRate: '1.4000',
-                compCalculated: '2.8000',
-                diff: '-0.2000',
+                calculated: '2.40',
+                comparisonRate: '1.40',
+                compCalculated: '2.80',
+                diff: '-0.20',
                 key: 'PLN',
-                rate: '1.2000',
+                rate: '1.20',
                 ratio: '85.71 %',
             },
         ]
@@ -107,12 +109,12 @@ describe('prepareDataSource', () => {
         }
         const expected = [
             {
-                calculated: '0.0000',
-                comparisonRate: '0.0000',
-                compCalculated: '0.0000',
-                diff: '0.0000',
+                calculated: ZERO_FORMATTED,
+                comparisonRate: ZERO_FORMATTED,
+                compCalculated: ZERO_FORMATTED,
+                diff: ZERO_FORMATTED,
                 key: 'USD',
-                rate: '0.0000',
+                rate: ZERO_FORMATTED,
                 ratio: '0.00 %',
             },
         ]

@@ -1,8 +1,10 @@
 import numeral from 'numeral'
 
-const RATE_FORMAT = '0,0.0000'
-const CALC_FORMAT = '0,0.0000'
-const PERCENT_FORMAT = '(0.00 %)'
+import {
+    RATE_FORMAT,
+    CALC_FORMAT,
+    PERCENT_FORMAT,
+} from '../../constants'
 
 export const prepareDataSource = ({
     amount,

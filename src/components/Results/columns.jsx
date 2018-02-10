@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { ZERO_FORMATTED } from '../../constants'
+
 export const diffRender = (text) => {
     let cellClass = 'Results-diffIncrease'
 
-    if (text === '0.0000') {
+    if (text === ZERO_FORMATTED) {
         cellClass = 'Results-noDiff'
     } else if (text[0] === '-') {
         cellClass = 'Results-diffDecrease'

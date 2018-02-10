@@ -15,7 +15,7 @@ describe('diffRender', () => {
     })
 
     it('should return "neutral" class for specific text', () => {
-        expect(shallow(diffRender('0.0000')).hasClass(NEUTRAL)).toBe(true)
+        expect(shallow(diffRender('0.00')).hasClass(NEUTRAL)).toBe(true)
     })
 
     it('should return "increase" class for texts with positive numbers', () => {
