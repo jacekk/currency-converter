@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://api.fixer.io/'
+export const API_BASE_URL = 'https://frankfurter.app/'
 export const API_DATE_FORMAT = 'YYYY-MM-DD'
 export const MIN_AMOUNT = 1
 export const MAX_AMOUNT = 1e6
