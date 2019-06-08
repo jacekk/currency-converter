@@ -5,7 +5,7 @@
 
 ### Requirements
 
-- node >=8.9
+- node >= 8
 - yarn
 
 ### Setup
