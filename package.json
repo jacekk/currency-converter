@@ -1,7 +1,7 @@
 {
   "name": "currency-converter",
   "author": "JacekK",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "homepage": "https://jacekk.github.io/currency-converter/",
   "private": true,
   "repository": {
@@ -11,7 +11,7 @@
   "scripts": {
     "build": "react-app-rewired build",
     "coverage": "react-app-rewired test --coverage",
-    "deploy": "gh-pages -d build --message 'v0.1.4 released;' ",
+    "deploy": "gh-pages -d build --message 'v0.2.0 released;' ",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "start": "react-app-rewired start",
