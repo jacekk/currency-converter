@@ -17,6 +17,10 @@
     "start": "react-app-rewired start",
     "test": "react-app-rewired test"
   },
+  "engines": {
+    "node": "8.x",
+    "yarn": "1.x"
+  },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.js"
